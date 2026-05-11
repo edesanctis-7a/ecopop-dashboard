@@ -486,12 +486,16 @@ async function loadDashboard() {
     ]);
 
     // ── Tablero (financiero) ──
-    // Fila 0 = labels, fila 1 = valores en Unnamed: 0, Unnamed: 3, Unnamed: 6, Unnamed: 9, Unnamed: 12
+    // Fila 1 tiene los valores: ventas, pago coops, excedente, gastos, balance
+    // Filtramos solo celdas con valores numéricos (contienen $)
     const tVal = tableroData[1] || {};
-    const ventasTotal = parseNum(tVal['Unnamed: 0'] || tVal['ECOPOP'] || 0);
-    const pagoCoop    = parseNum(tVal['Unnamed: 3'] || 0);
-    const excedente   = parseNum(tVal['Unnamed: 6'] || 0);
-    const balance     = parseNum(tVal['Unnamed: 12'] || 0);
+    const tVals = Object.values(tVal)
+      .map(v => String(v||'').trim())
+      .filter(v => v.includes('$') || v.includes('-$'));
+    const ventasTotal = parseNum(tVals[0] || 0);
+    const pagoCoop    = parseNum(tVals[1] || 0);
+    const excedente   = parseNum(tVals[2] || 0);
+    const balance     = parseNum(tVals[4] || tVals[3] || 0);
 
     set('blVentas', fmtPesoFull(ventasTotal));
     set('blCoops', fmtPesoFull(pagoCoop));
