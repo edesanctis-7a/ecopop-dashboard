@@ -393,21 +393,19 @@ async function loadDashboard() {
     const ventas = mesesRaw.map(r => parseNum(r['SUM de Venta x cantidad']));
     const ordenesPorMes = mesesRaw.map(r => parseNum(r['SUM de Venta x cantidad'])); // placeholder
 
-    // Top 5 productos - leer filas 1 a 5 del CSV (índices 1-5 después del header)
+    // Top 5 productos - saltar fila con 'sum', leer solo filas con datos reales
     const top5Qty = [];
     const top5Pesos = [];
     for (let row of evoData) {
-      const nombreQty = (row['TOP 5 Productos más vendidos en cantidad'] || '').trim();
+      const nombreQty   = (row['TOP 5 Productos más vendidos en cantidad'] || '').trim();
       const nombrePesos = (row['TOP 5 Productos más vendidos en $'] || '').trim();
-      // La columna de cantidad es Unnamed: 6, la de pesos es Unnamed: 4
-      // Ignorar filas de encabezado o vacías
-      if (nombreQty && nombreQty !== 'sum' && nombreQty !== '') {
-        const qty = parseNum(row['Unnamed: 6']);
-        top5Qty.push({ name: nombreQty, qty: qty });
+      const valQty   = (row['Unnamed: 6'] || '').trim();
+      const valPesos = (row['Unnamed: 4'] || '').trim();
+      if (nombreQty && nombreQty !== 'sum' && valQty && valQty !== 'sum') {
+        top5Qty.push({ name: nombreQty, qty: parseNum(valQty) });
       }
-      if (nombrePesos && nombrePesos !== 'sum' && nombrePesos !== '') {
-        const val = parseNum(row['Unnamed: 4']);
-        top5Pesos.push({ name: nombrePesos, qty: val });
+      if (nombrePesos && nombrePesos !== 'sum' && valPesos && valPesos !== 'sum') {
+        top5Pesos.push({ name: nombrePesos, qty: parseNum(valPesos) });
       }
     }
 

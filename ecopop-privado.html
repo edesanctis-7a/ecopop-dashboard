@@ -486,14 +486,12 @@ async function loadDashboard() {
     ]);
 
     // ── Tablero (financiero) ──
-    const tRow = tableroData[0] || {};
+    // Fila 0 = labels, fila 1 = valores en Unnamed: 0, Unnamed: 3, Unnamed: 6, Unnamed: 9, Unnamed: 12
     const tVal = tableroData[1] || {};
-    // Extraer valores del tablero (estructura especial)
-    const ventasTotal = parseNum(Object.values(tVal)[0]);
-    const pagoCoop = parseNum(Object.values(tVal)[3]);
-    const excedente = parseNum(Object.values(tVal)[6]);
-    const gastosTotal = parseNum(Object.values(tVal)[9]);
-    const balance = parseNum(Object.values(tVal)[12]);
+    const ventasTotal = parseNum(tVal['Unnamed: 0'] || tVal['ECOPOP'] || 0);
+    const pagoCoop    = parseNum(tVal['Unnamed: 3'] || 0);
+    const excedente   = parseNum(tVal['Unnamed: 6'] || 0);
+    const balance     = parseNum(tVal['Unnamed: 12'] || 0);
 
     set('blVentas', fmtPesoFull(ventasTotal));
     set('blCoops', fmtPesoFull(pagoCoop));
@@ -525,12 +523,13 @@ async function loadDashboard() {
     const maxVenta = Math.max(...ventas);
     const maxIdx = ventas.indexOf(maxVenta);
 
-    // Top 5 en $ — filas donde la columna tiene nombre real (no vacío, no 'sum')
+    // Top 5 en $ — saltar primera fila (tiene 'sum'), leer filas 1-5
     const top5 = [];
     for(let row of evoData) {
       const nombre = (row['TOP 5 Productos más vendidos en $'] || '').trim();
-      if(nombre && nombre !== 'sum') {
-        top5.push({ name: nombre, value: parseNum(row['Unnamed: 4']) });
+      const valor  = (row['Unnamed: 4'] || '').trim();
+      if(nombre && nombre !== 'sum' && valor && valor !== 'sum') {
+        top5.push({ name: nombre, value: parseNum(valor) });
       }
     }
     const maxProd = top5[0]?.value||1;
