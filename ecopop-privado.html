@@ -525,11 +525,12 @@ async function loadDashboard() {
     const maxVenta = Math.max(...ventas);
     const maxIdx = ventas.indexOf(maxVenta);
 
-    // Top 5 en $
+    // Top 5 en $ — filas donde la columna tiene nombre real (no vacío, no 'sum')
     const top5 = [];
     for(let row of evoData) {
-      if(row['TOP 5 Productos más vendidos en $'] && row['TOP 5 Productos más vendidos en $'].trim()) {
-        top5.push({ name:row['TOP 5 Productos más vendidos en $'], value:parseNum(row['Unnamed: 4']) });
+      const nombre = (row['TOP 5 Productos más vendidos en $'] || '').trim();
+      if(nombre && nombre !== 'sum') {
+        top5.push({ name: nombre, value: parseNum(row['Unnamed: 4']) });
       }
     }
     const maxProd = top5[0]?.value||1;

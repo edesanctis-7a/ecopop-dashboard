@@ -393,15 +393,21 @@ async function loadDashboard() {
     const ventas = mesesRaw.map(r => parseNum(r['SUM de Venta x cantidad']));
     const ordenesPorMes = mesesRaw.map(r => parseNum(r['SUM de Venta x cantidad'])); // placeholder
 
-    // Top 5 productos por cantidad (de evolución)
+    // Top 5 productos - leer filas 1 a 5 del CSV (índices 1-5 después del header)
     const top5Qty = [];
     const top5Pesos = [];
     for (let row of evoData) {
-      if (row['TOP 5 Productos más vendidos en cantidad'] && row['TOP 5 Productos más vendidos en cantidad'] !== 'sum') {
-        top5Qty.push({ name: row['TOP 5 Productos más vendidos en cantidad'], qty: parseNum(row['Unnamed: 6']) });
+      const nombreQty = (row['TOP 5 Productos más vendidos en cantidad'] || '').trim();
+      const nombrePesos = (row['TOP 5 Productos más vendidos en $'] || '').trim();
+      // La columna de cantidad es Unnamed: 6, la de pesos es Unnamed: 4
+      // Ignorar filas de encabezado o vacías
+      if (nombreQty && nombreQty !== 'sum' && nombreQty !== '') {
+        const qty = parseNum(row['Unnamed: 6']);
+        top5Qty.push({ name: nombreQty, qty: qty });
       }
-      if (row['TOP 5 Productos más vendidos en $'] && row['TOP 5 Productos más vendidos en $'] !== '') {
-        top5Pesos.push({ name: row['TOP 5 Productos más vendidos en $'], qty: parseNum(row['Unnamed: 4']) });
+      if (nombrePesos && nombrePesos !== 'sum' && nombrePesos !== '') {
+        const val = parseNum(row['Unnamed: 4']);
+        top5Pesos.push({ name: nombrePesos, qty: val });
       }
     }
 
@@ -487,7 +493,9 @@ async function loadDashboard() {
     set('kpiLTV', fmtPeso(parseFloat(ltv)));
 
     buildCharts(meses, ventas, ordenesArr);
-    renderProductos(top5Qty.length ? top5Qty : top5Pesos);
+    // Usar top5Qty si tiene datos con qty > 0, sino top5Pesos
+    const productosRender = top5Qty.filter(p => p.qty > 0).length > 0 ? top5Qty : top5Pesos;
+    renderProductos(productosRender);
     renderCoops(coopsArr);
 
     document.getElementById('loadingScreen').style.display = 'none';
