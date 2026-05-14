@@ -108,8 +108,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto)
 </head>
 <body>
 
-</div>
-
 <div class="loading-wrap" id="loadingWrap">
   <div class="spinner"></div>
   <h2>ecopop</h2>
@@ -128,7 +126,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto)
     </div>
   </div>
   <div class="wrap">
-      <div class="bsep"></div>
+          <div class="bsep"></div>
       <div class="bi"><div class="bi-lbl">Pago a cooperativas</div><div class="bi-val" id="bCoops">—</div></div>
       <div class="bsep"></div>
       <div class="bi"><div class="bi-lbl">Excedente Ecopop</div><div class="bi-val am" id="bExc">—</div></div>
@@ -140,7 +138,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto)
       <div class="kc v"><div class="ki">🛒</div><div class="kl">Órdenes totales</div><div class="kv" id="kOrd">—</div><div class="ks" id="kPer">—</div></div>
       <div class="kc l"><div class="ki">🎟️</div><div class="kl">Ticket promedio</div><div class="kv" id="kTick">—</div><div class="ks" id="kTickS">—</div></div>
       <div class="kc a"><div class="ki">📦</div><div class="kl">Mejor mes</div><div class="kv" id="kMej">—</div><div class="ks" id="kMejS">—</div></div>
-      
     </div>
     <div class="cr">
       <div class="cc"><h3>Evolución mensual de ventas</h3><p id="chartDesc">—</p><canvas id="cEvo" height="220"></canvas></div>
@@ -156,17 +153,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto)
       <div class="ck"><div class="cki">💰</div><div class="ckl">LTV estimado</div><div class="ckv" id="cLTV">—</div><div class="ckd">Valor promedio total por cliente durante el período.</div></div>
     </div>
     <div class="sec">🏅 Productos, cooperativas y costos</div>
-    <div class="tc2">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:40px;">
       <div class="card"><h3>🛍️ Top 5 productos en $</h3><div id="topProds"></div></div>
+      <div class="card"><h3>📦 Top 5 productos en cantidad</h3><div id="topProdsQty"></div></div>
       <div class="card"><h3>🤝 Pagos a cooperativas</h3><div id="topCoops"></div></div>
-      
     </div>
   </div>
   <div class="footer">Generado para <strong>Ecopop · ecopop.ar</strong> · Datos actualizados automáticamente · 🌱 Economía popular argentina</div>
 </div>
 
 <script>
-
 
 const BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQyvlfUy5bSzcblJi6V0CAQt7JG8YfIN7HyJ_cSifvW2jVj6uHCG7niO99lepwkVf9rG-_fx2gjeEDy/pub';
 const U = {
@@ -246,12 +242,21 @@ async function loadAll() {
       ventas.push(num(r[1]));
     }
 
-    // TOP 5: col 3=nombre, col 4=valor (filas 2 a 6)
+    // TOP 5 en $: buscar filas donde col 3 tenga nombre y col 4 tenga valor
     const top5=[];
-    for (let i=2; i<=6 && i<evoRows.length; i++) {
-      const nombre=(evoRows[i][3]||'').trim();
-      const valor=num(evoRows[i][4]);
-      if (nombre && nombre!=='sum' && valor>0) top5.push({name:nombre, value:valor});
+    const top5qty=[];
+    for (let i=1; i<evoRows.length; i++) {
+      const r = evoRows[i];
+      const nombreP = (r[3]||'').trim().replace(/^"+|"+$/g,'');
+      const valorP = num(r[4]);
+      const nombreQ = (r[5]||'').trim().replace(/^"+|"+$/g,'');
+      const qty = num(r[6]);
+      if (nombreP && nombreP !== 'sum' && valorP > 0 && top5.length < 5) {
+        top5.push({name: nombreP, value: valorP});
+      }
+      if (nombreQ && nombreQ !== 'sum' && qty > 0 && top5qty.length < 5) {
+        top5qty.push({name: nombreQ, qty: qty});
+      }
     }
 
     // VENTAS: procesar por columna
@@ -312,7 +317,6 @@ async function loadAll() {
       }
     }
 
-
     // COOPS
     const coopsArr=Object.entries(coopMap)
       .filter(([n])=>n&&n!=='SIN ASIGNAR'&&n!=='nan'&&n.trim()!=='')
@@ -353,6 +357,15 @@ async function loadAll() {
         <div class="pval">${peso(p.value)}</div>
       </div>`).join('');
 
+    const maxQ=top5qty[0]?.qty||1;
+    document.getElementById('topProdsQty').innerHTML=top5qty.map((p,i)=>`
+      <div class="pr">
+        <div class="prank" style="color:${rankColors[i]}">${i+1}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.round(p.qty/maxQ*100)}%"></div></div></div>
+        <div class="pval">${p.qty} uds</div>
+      </div>`).join('');
+
     const coopColors=['#2D6A4F','#52B788','#74C69D','#95D5B2','#B7E4C7','#F5C518','#E76F51'];
     document.getElementById('topCoops').innerHTML=coopsArr.map(([name,val],i)=>`
       <div class="coop-row">
@@ -361,16 +374,6 @@ async function loadAll() {
         <div class="coop-val">${peso(val)}</div>
       </div>`).join('');
 
-    document.getElementById('gastos').innerHTML=
-      gastItems.map(g=>`
-        <div class="gasto-row">
-          <div class="gasto-nombre">${g.nombre}</div>
-          <div class="gasto-val">$${Math.round(g.valor).toLocaleString('es-AR')}</div>
-        </div>`).join('')+
-      `<div class="gasto-row gtotal">
-        <div class="gasto-nombre">TOTAL</div>
-        <div class="gasto-val">$${Math.round(gastTotal).toLocaleString('es-AR')}</div>
-      </div>`;
 
     document.getElementById('loadingWrap').style.display='none';
     document.getElementById('dash').style.display='block';
