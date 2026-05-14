@@ -274,19 +274,21 @@ async function loadAll() {
       ventas.push(num(r[1]));
     }
 
-    // TOP 5 en $: col 3=nombre, col 4=valor (filas 2 a 6)
+    // TOP 5 en $: buscar filas donde col 3 tenga nombre y col 4 tenga valor
     const top5=[];
-    for (let i=2; i<=6 && i<evoRows.length; i++) {
-      const nombre=(evoRows[i][3]||'').trim();
-      const valor=num(evoRows[i][4]);
-      if (nombre && nombre!=='sum' && valor>0) top5.push({name:nombre, value:valor});
-    }
-    // TOP 5 en cantidad: col 5=nombre, col 6=cantidad (filas 2 a 6)
     const top5qty=[];
-    for (let i=2; i<=6 && i<evoRows.length; i++) {
-      const nombre=(evoRows[i][5]||'').trim();
-      const qty=num(evoRows[i][6]);
-      if (nombre && nombre!=='sum' && qty>0) top5qty.push({name:nombre, qty:qty});
+    for (let i=1; i<evoRows.length; i++) {
+      const r = evoRows[i];
+      const nombreP = (r[3]||'').trim().replace(/^"+|"+$/g,'');
+      const valorP = num(r[4]);
+      const nombreQ = (r[5]||'').trim().replace(/^"+|"+$/g,'');
+      const qty = num(r[6]);
+      if (nombreP && nombreP !== 'sum' && valorP > 0 && top5.length < 5) {
+        top5.push({name: nombreP, value: valorP});
+      }
+      if (nombreQ && nombreQ !== 'sum' && qty > 0 && top5qty.length < 5) {
+        top5qty.push({name: nombreQ, qty: qty});
+      }
     }
 
     // VENTAS: procesar por columna
