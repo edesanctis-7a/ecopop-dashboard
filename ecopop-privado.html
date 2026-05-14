@@ -1,11 +1,12 @@
-<!DOCTYPE html>
-<!-- saved from url=(0056)file:///C:/Users/soporte/Downloads/ecopop-privado_1.html -->
-<html lang="es"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ecopop · Reporte Interno</title>
-<link href="./Ecopop · Reporte Interno_files/css2" rel="stylesheet">
-<script src="./Ecopop · Reporte Interno_files/chart.umd.min.js.descarga"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
   :root {
     --verde: #2D6A4F;
@@ -235,27 +236,27 @@
 <body>
 
 <!-- LOGIN -->
-<div class="login-screen" id="loginScreen" style="display: none;">
+<div class="login-screen" id="loginScreen">
   <div class="login-box">
     <div class="login-lock">🔒</div>
     <div class="login-logo">eco<span>pop</span></div>
     <div class="login-subtitle">Reporte interno · Acceso restringido</div>
     <label class="login-label">Contraseña</label>
-    <input type="password" class="login-input" id="passInput" placeholder="••••••" onkeydown="if(event.key===&#39;Enter&#39;) checkPass()" autofocus="">
+    <input type="password" class="login-input" id="passInput" placeholder="••••••" onkeydown="if(event.key==='Enter') checkPass()" autofocus>
     <button class="login-btn" onclick="checkPass()">Ingresar →</button>
     <div class="login-error" id="loginError">Contraseña incorrecta. Intentá de nuevo.</div>
   </div>
 </div>
 
 <!-- LOADING -->
-<div class="loading-screen" id="loadingScreen" style="display: none;">
+<div class="loading-screen" id="loadingScreen" style="display:none">
   <div class="spinner"></div>
   <h2>ecopop</h2>
   <p>Cargando datos actualizados...</p>
 </div>
 
 <!-- DASHBOARD -->
-<div class="dashboard" id="dashboard" style="display: block;">
+<div class="dashboard" id="dashboard">
   <div class="header">
     <div class="header-left">
       <h1>eco<span>pop</span> · Reporte interno</h1>
@@ -620,6 +621,5 @@ async function loadDashboard() {
   }
 }
 </script>
-
-
-</body></html>
+</body>
+</html>
