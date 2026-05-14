@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -97,134 +98,134 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto)
 .footer{text-align:center;padding:28px;font-size:0.75rem;color:var(--suave);border-top:1px solid var(--crema2);}
 .footer strong{color:var(--verde);}
 @media(max-width:900px){
-.kg,.cg{grid-template-columns:repeat(2,1fr);}
-.cr,.tc{grid-template-columns:1fr;}
-.banner{grid-template-columns:1fr 1fr;}.bsep{display:none;}
-.header{padding:24px;flex-direction:column;gap:14px;align-items:flex-start;}
-.wrap{padding:24px 16px;}
+  .kg,.cg{grid-template-columns:repeat(2,1fr);}
+  .cr,.tc{grid-template-columns:1fr;}
+  .banner{grid-template-columns:1fr 1fr;}.bsep{display:none;}
+  .header{padding:24px;flex-direction:column;gap:14px;align-items:flex-start;}
+  .wrap{padding:24px 16px;}
 }
 </style>
 </head>
 <body>
 
 <div class="login-wrap" id="loginWrap">
-<div class="login-box">
-<div style="font-size:2.2rem;margin-bottom:16px">🔒</div>
-<div class="login-logo">eco<span>pop</span></div>
-<div class="login-sub">Reporte interno · Acceso restringido</div>
-<label class="login-label">Contraseña</label>
-<input type="password" class="login-input" id="passInput" placeholder="••••••" onkeydown="if(event.key==='Enter')checkPass()" autofocus>
-<button class="login-btn" onclick="checkPass()">Ingresar →</button>
-<div class="login-err" id="loginErr">Contraseña incorrecta. Intentá de nuevo.</div>
-</div>
+  <div class="login-box">
+    <div style="font-size:2.2rem;margin-bottom:16px">🔒</div>
+    <div class="login-logo">eco<span>pop</span></div>
+    <div class="login-sub">Reporte interno · Acceso restringido</div>
+    <label class="login-label">Contraseña</label>
+    <input type="password" class="login-input" id="passInput" placeholder="••••••" onkeydown="if(event.key==='Enter')checkPass()" autofocus>
+    <button class="login-btn" onclick="checkPass()">Ingresar →</button>
+    <div class="login-err" id="loginErr">Contraseña incorrecta. Intentá de nuevo.</div>
+  </div>
 </div>
 
 <div class="loading-wrap" id="loadingWrap">
-<div class="spinner"></div>
-<h2>ecopop</h2>
-<p>Cargando datos actualizados...</p>
+  <div class="spinner"></div>
+  <h2>ecopop</h2>
+  <p>Cargando datos actualizados...</p>
 </div>
 
 <div class="dash" id="dash">
-<div class="header">
-<div class="hl">
-<h1>eco<span>pop</span> · Reporte interno</h1>
-<p id="hSub">Cargando...</p>
-</div>
-<div class="hr">
-<div class="badge priv">🔐 Vista interna</div>
-<div class="upd" id="hUpd"></div>
-</div>
-</div>
-<div class="wrap">
-<div class="sec">💰 Resumen financiero</div>
-<div class="banner">
-<div class="bi"><div class="bi-lbl">Ventas totales</div><div class="bi-val" id="bVentas">—</div></div>
-<div class="bsep"></div>
-<div class="bi"><div class="bi-lbl">Pago a cooperativas</div><div class="bi-val" id="bCoops">—</div></div>
-<div class="bsep"></div>
-<div class="bi"><div class="bi-lbl">Excedente Ecopop</div><div class="bi-val am" id="bExc">—</div></div>
-<div class="bsep"></div>
-<div class="bi"><div class="bi-lbl">Balance neto</div><div class="bi-val ro" id="bBal">—</div></div>
-</div>
-<div class="sec">📊 KPIs de ventas</div>
-<div class="kg">
-<div class="kc v"><div class="ki">🛒</div><div class="kl">Órdenes totales</div><div class="kv" id="kOrd">—</div><div class="ks" id="kPer">—</div></div>
-<div class="kc l"><div class="ki">🎟️</div><div class="kl">Ticket promedio</div><div class="kv" id="kTick">—</div><div class="ks" id="kTickS">—</div></div>
-<div class="kc a"><div class="ki">📦</div><div class="kl">Mejor mes</div><div class="kv" id="kMej">—</div><div class="ks" id="kMejS">—</div></div>
-<div class="kc n"><div class="ki">🧾</div><div class="kl">Gastos fijos / mes</div><div class="kv" id="kGas">—</div><div class="kdelta">⚠ Revisar balance</div></div>
-</div>
-<div class="cr">
-<div class="cc"><h3>Evolución mensual de ventas</h3><p id="chartDesc">—</p><canvas id="cEvo" height="220"></canvas></div>
-<div class="cc"><h3>Órdenes por mes</h3><p>Volumen de transacciones</p><canvas id="cOrd" height="220"></canvas></div>
-</div>
-<div class="sec">👥 KPIs de clientes</div>
-<div class="cg">
-<div class="ck"><div class="cki">🆔</div><div class="ckl">Clientes únicos identificados</div><div class="ckv" id="cUnicos">—</div><div class="ckd">Con email registrado sobre el total de compradores.</div><div class="cka">📌 Solo tenés datos del <span id="cPct">—</span>% de tus clientes. Activar email obligatorio en el checkout es clave.</div></div>
-<div class="ck"><div class="cki">🔁</div><div class="ckl">Tasa de recompra</div><div class="ckv" id="cRecompra">—</div><div class="ckd" id="cRecompraD">—</div><div class="cka">🎯 Gran oportunidad: fidelización y remarketing por email/WhatsApp.</div></div>
-<div class="ck"><div class="cki">🏆</div><div class="ckl">Cliente más frecuente</div><div class="ckv" id="cMax">—</div><div class="ckd">órdenes del cliente más activo. Probable revendedor o cooperativa compradora.</div></div>
-<div class="ck"><div class="cki">📈</div><div class="ckl">Frecuencia promedio</div><div class="ckv" id="cFrec">—</div><div class="ckd">compras promedio por cliente identificado.</div><div class="cka">💡 Meta: llevar a 2 compras por cliente en 12 meses.</div></div>
-<div class="ck"><div class="cki">🎫</div><div class="ckl">Ticket promedio</div><div class="ckv" id="cTick">—</div><div class="ckd" id="cTickD">—</div></div>
-<div class="ck"><div class="cki">💰</div><div class="ckl">LTV estimado</div><div class="ckv" id="cLTV">—</div><div class="ckd">Valor promedio total por cliente durante el período.</div></div>
-</div>
-<div class="sec">🏅 Productos, cooperativas y costos</div>
-<div class="tc">
-<div class="card"><h3>🛍️ Top 5 productos en $</h3><div id="topProds"></div></div>
-<div class="card"><h3>🤝 Pagos a cooperativas</h3><div id="topCoops"></div></div>
-<div class="card"><h3>🧾 Gastos fijos mensuales</h3><div id="gastos"></div></div>
-</div>
-</div>
-<div class="footer">Reporte interno · <strong>Ecopop · ecopop.ar</strong> · Datos actualizados automáticamente · 🔐 Confidencial</div>
+  <div class="header">
+    <div class="hl">
+      <h1>eco<span>pop</span> · Reporte interno</h1>
+      <p id="hSub">Cargando...</p>
+    </div>
+    <div class="hr">
+      <div class="badge priv">🔐 Vista interna</div>
+      <div class="upd" id="hUpd"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="sec">💰 Resumen financiero</div>
+    <div class="banner">
+      <div class="bi"><div class="bi-lbl">Ventas totales</div><div class="bi-val" id="bVentas">—</div></div>
+      <div class="bsep"></div>
+      <div class="bi"><div class="bi-lbl">Pago a cooperativas</div><div class="bi-val" id="bCoops">—</div></div>
+      <div class="bsep"></div>
+      <div class="bi"><div class="bi-lbl">Excedente Ecopop</div><div class="bi-val am" id="bExc">—</div></div>
+      <div class="bsep"></div>
+      <div class="bi"><div class="bi-lbl">Balance neto</div><div class="bi-val ro" id="bBal">—</div></div>
+    </div>
+    <div class="sec">📊 KPIs de ventas</div>
+    <div class="kg">
+      <div class="kc v"><div class="ki">🛒</div><div class="kl">Órdenes totales</div><div class="kv" id="kOrd">—</div><div class="ks" id="kPer">—</div></div>
+      <div class="kc l"><div class="ki">🎟️</div><div class="kl">Ticket promedio</div><div class="kv" id="kTick">—</div><div class="ks" id="kTickS">—</div></div>
+      <div class="kc a"><div class="ki">📦</div><div class="kl">Mejor mes</div><div class="kv" id="kMej">—</div><div class="ks" id="kMejS">—</div></div>
+      <div class="kc n"><div class="ki">🧾</div><div class="kl">Gastos fijos / mes</div><div class="kv" id="kGas">—</div><div class="kdelta">⚠ Revisar balance</div></div>
+    </div>
+    <div class="cr">
+      <div class="cc"><h3>Evolución mensual de ventas</h3><p id="chartDesc">—</p><canvas id="cEvo" height="220"></canvas></div>
+      <div class="cc"><h3>Órdenes por mes</h3><p>Volumen de transacciones</p><canvas id="cOrd" height="220"></canvas></div>
+    </div>
+    <div class="sec">👥 KPIs de clientes</div>
+    <div class="cg">
+      <div class="ck"><div class="cki">🆔</div><div class="ckl">Clientes únicos identificados</div><div class="ckv" id="cUnicos">—</div><div class="ckd">Con email registrado sobre el total de compradores.</div><div class="cka">📌 Solo tenés datos del <span id="cPct">—</span>% de tus clientes. Activar email obligatorio en el checkout es clave.</div></div>
+      <div class="ck"><div class="cki">🔁</div><div class="ckl">Tasa de recompra</div><div class="ckv" id="cRecompra">—</div><div class="ckd" id="cRecompraD">—</div><div class="cka">🎯 Gran oportunidad: fidelización y remarketing por email/WhatsApp.</div></div>
+      <div class="ck"><div class="cki">🏆</div><div class="ckl">Cliente más frecuente</div><div class="ckv" id="cMax">—</div><div class="ckd">órdenes del cliente más activo. Probable revendedor o cooperativa compradora.</div></div>
+      <div class="ck"><div class="cki">📈</div><div class="ckl">Frecuencia promedio</div><div class="ckv" id="cFrec">—</div><div class="ckd">compras promedio por cliente identificado.</div><div class="cka">💡 Meta: llevar a 2 compras por cliente en 12 meses.</div></div>
+      <div class="ck"><div class="cki">🎫</div><div class="ckl">Ticket promedio</div><div class="ckv" id="cTick">—</div><div class="ckd" id="cTickD">—</div></div>
+      <div class="ck"><div class="cki">💰</div><div class="ckl">LTV estimado</div><div class="ckv" id="cLTV">—</div><div class="ckd">Valor promedio total por cliente durante el período.</div></div>
+    </div>
+    <div class="sec">🏅 Productos, cooperativas y costos</div>
+    <div class="tc">
+      <div class="card"><h3>🛍️ Top 5 productos en $</h3><div id="topProds"></div></div>
+      <div class="card"><h3>🤝 Pagos a cooperativas</h3><div id="topCoops"></div></div>
+      <div class="card"><h3>🧾 Gastos fijos mensuales</h3><div id="gastos"></div></div>
+    </div>
+  </div>
+  <div class="footer">Reporte interno · <strong>Ecopop · ecopop.ar</strong> · Datos actualizados automáticamente · 🔐 Confidencial</div>
 </div>
 
 <script>
 const PASS = 'ecopop2024';
 
 function checkPass() {
-const inp = document.getElementById('passInput');
-if (inp.value === PASS) {
-document.getElementById('loginWrap').style.display = 'none';
-document.getElementById('loadingWrap').style.display = 'flex';
-loadAll();
-} else {
-inp.classList.add('err');
-document.getElementById('loginErr').style.display = 'block';
-inp.value = '';
-setTimeout(() => inp.classList.remove('err'), 400);
-}
+  const inp = document.getElementById('passInput');
+  if (inp.value === PASS) {
+    document.getElementById('loginWrap').style.display = 'none';
+    document.getElementById('loadingWrap').style.display = 'flex';
+    loadAll();
+  } else {
+    inp.classList.add('err');
+    document.getElementById('loginErr').style.display = 'block';
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('err'), 400);
+  }
 }
 
 const BASE = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQyvlfUy5bSzcblJi6V0CAQt7JG8YfIN7HyJ_cSifvW2jVj6uHCG7niO99lepwkVf9rG-_fx2gjeEDy/pub';
 const U = {
-tablero: BASE + '?gid=0&single=true&output=csv',
-ventas: BASE + '?gid=921627938&single=true&output=csv',
-evolucion: BASE + '?gid=1392072259&single=true&output=csv',
-gastos: BASE + '?gid=1941561287&single=true&output=csv',
+  tablero:   BASE + '?gid=0&single=true&output=csv',
+  ventas:    BASE + '?gid=921627938&single=true&output=csv',
+  evolucion: BASE + '?gid=1392072259&single=true&output=csv',
+  gastos:    BASE + '?gid=1941561287&single=true&output=csv',
 };
 
 function parseCSV(txt) {
-const rows = [];
-for (let line of txt.trim().split('\n')) {
-const cells = []; let cur = '', inQ = false;
-for (let ch of line) {
-if (ch === '"') { inQ = !inQ; }
-else if (ch === ',' && !inQ) { cells.push(cur.trim()); cur = ''; }
-else cur += ch;
-}
-cells.push(cur.trim());
-rows.push(cells);
-}
-return rows;
+  const rows = [];
+  for (let line of txt.trim().split('\n')) {
+    const cells = []; let cur = '', inQ = false;
+    for (let ch of line) {
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cells.push(cur.trim()); cur = ''; }
+      else cur += ch;
+    }
+    cells.push(cur.trim());
+    rows.push(cells);
+  }
+  return rows;
 }
 
 function num(s) { return parseFloat(String(s||'').replace(/[$,\s]/g,'')) || 0; }
 
 function peso(n, full) {
-const abs = Math.abs(n), sign = n < 0 ? '−' : '';
-if (full) return sign + '$' + Math.round(abs).toLocaleString('es-AR');
-if (abs >= 1000000) return sign + '$' + (abs/1000000).toFixed(1) + 'M';
-if (abs >= 1000) return sign + '$' + Math.round(abs/1000) + 'K';
-return sign + '$' + Math.round(abs).toLocaleString('es-AR');
+  const abs = Math.abs(n), sign = n < 0 ? '−' : '';
+  if (full) return sign + '$' + Math.round(abs).toLocaleString('es-AR');
+  if (abs >= 1000000) return sign + '$' + (abs/1000000).toFixed(1) + 'M';
+  if (abs >= 1000) return sign + '$' + Math.round(abs/1000) + 'K';
+  return sign + '$' + Math.round(abs).toLocaleString('es-AR');
 }
 
 function set(id, v) { const e = document.getElementById(id); if(e) e.textContent = v; }
@@ -232,185 +233,189 @@ async function fetchCSV(url) { const r = await fetch(url); if(!r.ok) throw new E
 
 let cEvo, cOrd;
 function buildCharts(meses, ventas, ordenes) {
-const maxV = Math.max(...ventas);
-if(cEvo) cEvo.destroy();
-cEvo = new Chart(document.getElementById('cEvo').getContext('2d'), {
-type:'bar', data:{labels:meses,datasets:[{data:ventas,
-backgroundColor:ventas.map(v=>v===maxV?'#F5C518':'#52B788'),borderRadius:6,borderSkipped:false}]},
-options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>peso(c.raw,true)}}},
-scales:{y:{ticks:{callback:v=>peso(v),font:{size:10}},grid:{color:'#F0E8D8'}},x:{ticks:{font:{size:10}},grid:{display:false}}}}
-});
-if(cOrd) cOrd.destroy();
-cOrd = new Chart(document.getElementById('cOrd').getContext('2d'), {
-type:'line', data:{labels:meses,datasets:[{data:ordenes,borderColor:'#2D6A4F',
-backgroundColor:'rgba(45,106,79,0.08)',borderWidth:2.5,pointBackgroundColor:'#2D6A4F',
-pointRadius:4,fill:true,tension:0.4}]},
-options:{responsive:true,plugins:{legend:{display:false}},
-scales:{y:{ticks:{font:{size:10}},grid:{color:'#F0E8D8'}},x:{ticks:{font:{size:10}},grid:{display:false}}}}
-});
+  const maxV = Math.max(...ventas);
+  if(cEvo) cEvo.destroy();
+  cEvo = new Chart(document.getElementById('cEvo').getContext('2d'), {
+    type:'bar', data:{labels:meses,datasets:[{data:ventas,
+      backgroundColor:ventas.map(v=>v===maxV?'#F5C518':'#52B788'),borderRadius:6,borderSkipped:false}]},
+    options:{responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>peso(c.raw,true)}}},
+      scales:{y:{ticks:{callback:v=>peso(v),font:{size:10}},grid:{color:'#F0E8D8'}},x:{ticks:{font:{size:10}},grid:{display:false}}}}
+  });
+  if(cOrd) cOrd.destroy();
+  cOrd = new Chart(document.getElementById('cOrd').getContext('2d'), {
+    type:'line', data:{labels:meses,datasets:[{data:ordenes,borderColor:'#2D6A4F',
+      backgroundColor:'rgba(45,106,79,0.08)',borderWidth:2.5,pointBackgroundColor:'#2D6A4F',
+      pointRadius:4,fill:true,tension:0.4}]},
+    options:{responsive:true,plugins:{legend:{display:false}},
+      scales:{y:{ticks:{font:{size:10}},grid:{color:'#F0E8D8'}},x:{ticks:{font:{size:10}},grid:{display:false}}}}
+  });
 }
 
 async function loadAll() {
-try {
-const [tabRows, evoRows, ventasRows, gastosRows] = await Promise.all([
-fetchCSV(U.tablero), fetchCSV(U.evolucion), fetchCSV(U.ventas), fetchCSV(U.gastos)
-]);
+  try {
+    const [tabRows, evoRows, ventasRows, gastosRows] = await Promise.all([
+      fetchCSV(U.tablero), fetchCSV(U.evolucion), fetchCSV(U.ventas), fetchCSV(U.gastos)
+    ]);
 
-// TABLERO: fila 0="",ECOPOP,... fila 1=labels fila 2=valores en cols 0,3,6,9,12
-const tv = tabRows[2] || [];
-set('bVentas', peso(num(tv[0]), true));
-set('bCoops', peso(num(tv[3]), true));
-set('bExc', peso(num(tv[6]), true));
-set('kGas', peso(num(tv[9])));
-set('bBal', peso(num(tv[12]), true));
+    // TABLERO: buscar la fila que tenga valores con $ (robusto ante cambios de estructura)
+    let tv = [];
+    for (let i = 0; i < tabRows.length; i++) {
+      if (tabRows[i].filter(c => c && c.includes('$')).length >= 3) { tv = tabRows[i]; break; }
+    }
+    const tvVals = tv.filter(c => c && c.trim() !== '');
+    set('bVentas', peso(num(tvVals[0]), true));
+    set('bCoops',  peso(num(tvVals[1]), true));
+    set('bExc',    peso(num(tvVals[2]), true));
+    set('kGas',    peso(num(tvVals[3])));
+    set('bBal',    peso(num(tvVals[4]), true));
 
-// EVOLUCIÓN: fila 0=headers, col 0=MES-AÑO, col 1=ventas
-const NM = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-const meses=[], ventas=[], mesOrdMap={};
-for (let i=1; i<evoRows.length; i++) {
-const r = evoRows[i];
-const my = (r[0]||'').trim();
-if (!my || my==='Suma total') continue;
-const [y,m] = my.split('-');
-if (!y||!m) continue;
-meses.push(NM[+m]+' '+y.slice(2));
-ventas.push(num(r[1]));
-}
+    // EVOLUCIÓN: fila 0=headers, col 0=MES-AÑO, col 1=ventas
+    const NM = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    const meses=[], ventas=[], mesOrdMap={};
+    for (let i=1; i<evoRows.length; i++) {
+      const r = evoRows[i];
+      const my = (r[0]||'').trim();
+      if (!my || my==='Suma total') continue;
+      const [y,m] = my.split('-');
+      if (!y||!m) continue;
+      meses.push(NM[+m]+' '+y.slice(2));
+      ventas.push(num(r[1]));
+    }
 
-// TOP 5: col 3=nombre, col 4=valor (filas 2 a 6)
-const top5=[];
-for (let i=2; i<=6 && i<evoRows.length; i++) {
-const nombre=(evoRows[i][3]||'').trim();
-const valor=num(evoRows[i][4]);
-if (nombre && nombre!=='sum' && valor>0) top5.push({name:nombre, value:valor});
-}
+    // TOP 5: col 3=nombre, col 4=valor (filas 2 a 6)
+    const top5=[];
+    for (let i=2; i<=6 && i<evoRows.length; i++) {
+      const nombre=(evoRows[i][3]||'').trim();
+      const valor=num(evoRows[i][4]);
+      if (nombre && nombre!=='sum' && valor>0) top5.push({name:nombre, value:valor});
+    }
 
-// VENTAS: procesar por columna
-const H = ventasRows[0];
-const ci={};
-H.forEach((h,i) => ci[h.trim()]=i);
-const iOrd=ci['Número de orden'], iEmail=ci['Email'], iMes=ci['MES-AÑO'];
-const iVenta=ci['Venta x cantidad'], iPago=ci['PAGO COOP. (NLP)'], iCoop=ci['COOPERATIVA'];
+    // VENTAS: procesar por columna
+    const H = ventasRows[0];
+    const ci={};
+    H.forEach((h,i) => ci[h.trim()]=i);
+    const iOrd=ci['Número de orden'], iEmail=ci['Email'], iMes=ci['MES-AÑO'];
+    const iVenta=ci['Venta x cantidad'], iPago=ci['PAGO COOP. (NLP)'], iCoop=ci['COOPERATIVA'];
 
-const ordMap={}, coopMap={}, mesOrdenes={};
-for (let i=1; i<ventasRows.length; i++) {
-const r=ventasRows[i];
-const ord=r[iOrd]; if(!ord) continue;
-const mes=(r[iMes]||'').trim();
-if (!ordMap[ord]) {
-ordMap[ord]={email:(r[iEmail]||'').toLowerCase().trim(), venta:0, mes};
-mesOrdenes[mes]=(mesOrdenes[mes]||0)+1;
-}
-ordMap[ord].venta += num(r[iVenta]);
-const coop=(r[iCoop]||'').trim();
-const pago=num(r[iPago]);
-if (coop && pago>0) coopMap[coop]=(coopMap[coop]||0)+pago;
-}
+    const ordMap={}, coopMap={}, mesOrdenes={};
+    for (let i=1; i<ventasRows.length; i++) {
+      const r=ventasRows[i];
+      const ord=r[iOrd]; if(!ord) continue;
+      const mes=(r[iMes]||'').trim();
+      if (!ordMap[ord]) {
+        ordMap[ord]={email:(r[iEmail]||'').toLowerCase().trim(), venta:0, mes};
+        mesOrdenes[mes]=(mesOrdenes[mes]||0)+1;
+      }
+      ordMap[ord].venta += num(r[iVenta]);
+      const coop=(r[iCoop]||'').trim();
+      const pago=num(r[iPago]);
+      if (coop && pago>0) coopMap[coop]=(coopMap[coop]||0)+pago;
+    }
 
-const todas=Object.values(ordMap);
-const totalOrd=todas.length;
-const montos=todas.map(o=>o.venta).filter(v=>v>0).sort((a,b)=>a-b);
-const tickProm=montos.reduce((a,b)=>a+b,0)/montos.length;
-const mediana=montos[Math.floor(montos.length/2)];
+    const todas=Object.values(ordMap);
+    const totalOrd=todas.length;
+    const montos=todas.map(o=>o.venta).filter(v=>v>0).sort((a,b)=>a-b);
+    const tickProm=montos.reduce((a,b)=>a+b,0)/montos.length;
+    const mediana=montos[Math.floor(montos.length/2)];
 
-const emailMap={};
-todas.filter(o=>o.email&&o.email.includes('@')).forEach(o=>{emailMap[o.email]=(emailMap[o.email]||0)+1;});
-const uClientes=Object.keys(emailMap).length;
-const recompra=Object.values(emailMap).filter(v=>v>=2).length;
-const maxC=Math.max(...Object.values(emailMap));
-const frec=(Object.values(emailMap).reduce((a,b)=>a+b,0)/uClientes).toFixed(2);
-const ltv=tickProm*parseFloat(frec);
-const pct=Math.round(uClientes/totalOrd*100);
+    const emailMap={};
+    todas.filter(o=>o.email&&o.email.includes('@')).forEach(o=>{emailMap[o.email]=(emailMap[o.email]||0)+1;});
+    const uClientes=Object.keys(emailMap).length;
+    const recompra=Object.values(emailMap).filter(v=>v>=2).length;
+    const maxC=Math.max(...Object.values(emailMap));
+    const frec=(Object.values(emailMap).reduce((a,b)=>a+b,0)/uClientes).toFixed(2);
+    const ltv=tickProm*parseFloat(frec);
+    const pct=Math.round(uClientes/totalOrd*100);
 
-// Ordenes por mes (alinear con array de meses de evolución)
-const evoMesKeys = [];
-for (let i=1; i<evoRows.length; i++) {
-const my=(evoRows[i][0]||'').trim();
-if (my && my!=='Suma total' && my.includes('-')) evoMesKeys.push(my);
-}
-const ordenesArr=evoMesKeys.map(k=>mesOrdenes[k]||0);
+    // Ordenes por mes (alinear con array de meses de evolución)
+    const evoMesKeys = [];
+    for (let i=1; i<evoRows.length; i++) {
+      const my=(evoRows[i][0]||'').trim();
+      if (my && my!=='Suma total' && my.includes('-')) evoMesKeys.push(my);
+    }
+    const ordenesArr=evoMesKeys.map(k=>mesOrdenes[k]||0);
 
-// GASTOS
-const gastItems=[];
-let gastTotal=0;
-for (let i=1; i<gastosRows.length; i++) {
-const nombre=(gastosRows[i][0]||'').trim();
-const valor=num(gastosRows[i][1]);
-if (!nombre||nombre==='TOTAL'||nombre==='Honorario') continue;
-if (valor>0) {
-gastItems.push({nombre,valor});
-if (nombre!=='IMP AL DEB') gastTotal+=valor;
-}
-}
+    // GASTOS
+    const gastItems=[];
+    let gastTotal=0;
+    for (let i=1; i<gastosRows.length; i++) {
+      const nombre=(gastosRows[i][0]||'').trim();
+      const valor=num(gastosRows[i][1]);
+      if (!nombre||nombre==='TOTAL'||nombre==='Honorario') continue;
+      if (valor>0) {
+        gastItems.push({nombre,valor});
+        if (nombre!=='IMP AL DEB') gastTotal+=valor;
+      }
+    }
 
-// COOPS
-const coopsArr=Object.entries(coopMap)
-.filter(([n])=>n&&n!=='SIN ASIGNAR'&&n!=='nan'&&n.trim()!=='')
-.sort((a,b)=>b[1]-a[1]).slice(0,7);
+    // COOPS
+    const coopsArr=Object.entries(coopMap)
+      .filter(([n])=>n&&n!=='SIN ASIGNAR'&&n!=='nan'&&n.trim()!=='')
+      .sort((a,b)=>b[1]-a[1]).slice(0,7);
 
-const maxV=Math.max(...ventas);
-const maxIdx=ventas.indexOf(maxV);
-const p0=meses[0], pN=meses[meses.length-1];
+    const maxV=Math.max(...ventas);
+    const maxIdx=ventas.indexOf(maxV);
+    const p0=meses[0], pN=meses[meses.length-1];
 
-set('hSub', `Reporte interno · ${p0} – ${pN} · ${totalOrd} órdenes`);
-set('hUpd', 'Actualizado: '+new Date().toLocaleDateString('es-AR'));
-set('kOrd', totalOrd.toLocaleString('es-AR'));
-set('kPer', p0+' – '+pN);
-set('kTick', peso(tickProm));
-set('kTickS','Mediana: '+peso(mediana));
-set('kMej', meses[maxIdx]);
-set('kMejS', peso(maxV,true));
-set('chartDesc', p0+' – '+pN);
-set('cUnicos', uClientes);
-set('cPct', pct);
-set('cRecompra', (recompra/uClientes*100).toFixed(1)+'%');
-set('cRecompraD', recompra+' de '+uClientes+' clientes compraron más de una vez.');
-set('cMax', maxC);
-set('cFrec', frec);
-set('cTick', peso(tickProm));
-set('cTickD', 'Mediana: '+peso(mediana)+'. Las órdenes grandes elevan el promedio.');
-set('cLTV', peso(ltv));
+    set('hSub', `Reporte interno · ${p0} – ${pN} · ${totalOrd} órdenes`);
+    set('hUpd', 'Actualizado: '+new Date().toLocaleDateString('es-AR'));
+    set('kOrd', totalOrd.toLocaleString('es-AR'));
+    set('kPer', p0+' – '+pN);
+    set('kTick', peso(tickProm));
+    set('kTickS','Mediana: '+peso(mediana));
+    set('kMej', meses[maxIdx]);
+    set('kMejS', peso(maxV,true));
+    set('chartDesc', p0+' – '+pN);
+    set('cUnicos', uClientes);
+    set('cPct', pct);
+    set('cRecompra', (recompra/uClientes*100).toFixed(1)+'%');
+    set('cRecompraD', recompra+' de '+uClientes+' clientes compraron más de una vez.');
+    set('cMax', maxC);
+    set('cFrec', frec);
+    set('cTick', peso(tickProm));
+    set('cTickD', 'Mediana: '+peso(mediana)+'. Las órdenes grandes elevan el promedio.');
+    set('cLTV', peso(ltv));
 
-buildCharts(meses, ventas, ordenesArr);
+    buildCharts(meses, ventas, ordenesArr);
 
-const rankColors=['#F5C518','#B0BEC5','#A1673A','#90A4AE','#78909C'];
-const maxP=top5[0]?.value||1;
-document.getElementById('topProds').innerHTML=top5.map((p,i)=>`
-<div class="pr">
-<div class="prank" style="color:${rankColors[i]}">${i+1}</div>
-<div class="pname">${p.name}</div>
-<div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.round(p.value/maxP*100)}%"></div></div></div>
-<div class="pval">${peso(p.value)}</div>
-</div>`).join('');
+    const rankColors=['#F5C518','#B0BEC5','#A1673A','#90A4AE','#78909C'];
+    const maxP=top5[0]?.value||1;
+    document.getElementById('topProds').innerHTML=top5.map((p,i)=>`
+      <div class="pr">
+        <div class="prank" style="color:${rankColors[i]}">${i+1}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.round(p.value/maxP*100)}%"></div></div></div>
+        <div class="pval">${peso(p.value)}</div>
+      </div>`).join('');
 
-const coopColors=['#2D6A4F','#52B788','#74C69D','#95D5B2','#B7E4C7','#F5C518','#E76F51'];
-document.getElementById('topCoops').innerHTML=coopsArr.map(([name,val],i)=>`
-<div class="coop-row">
-<div class="coop-dot" style="background:${coopColors[i%7]}"></div>
-<div class="coop-name">${name.replace(/COOPERATIVA DE TRABAJO /g,'').replace(/ LIMITADA/g,'').replace(/COOP DE TRAB Y PROV\. /g,'').replace(/COOP\. PROVISION TRANSF\. IND\. CONSUMO Y COMERCIALIZACION /g,'').replace(/ LTDA/g,'').trim()}</div>
-<div class="coop-val">${peso(val)}</div>
-</div>`).join('');
+    const coopColors=['#2D6A4F','#52B788','#74C69D','#95D5B2','#B7E4C7','#F5C518','#E76F51'];
+    document.getElementById('topCoops').innerHTML=coopsArr.map(([name,val],i)=>`
+      <div class="coop-row">
+        <div class="coop-dot" style="background:${coopColors[i%7]}"></div>
+        <div class="coop-name">${name.replace(/COOPERATIVA DE TRABAJO /g,'').replace(/ LIMITADA/g,'').replace(/COOP DE TRAB Y PROV\. /g,'').replace(/COOP\. PROVISION TRANSF\. IND\. CONSUMO Y COMERCIALIZACION /g,'').replace(/ LTDA/g,'').trim()}</div>
+        <div class="coop-val">${peso(val)}</div>
+      </div>`).join('');
 
-document.getElementById('gastos').innerHTML=
-gastItems.map(g=>`
-<div class="gasto-row">
-<div class="gasto-nombre">${g.nombre}</div>
-<div class="gasto-val">$${Math.round(g.valor).toLocaleString('es-AR')}</div>
-</div>`).join('')+
-`<div class="gasto-row gtotal">
-<div class="gasto-nombre">TOTAL</div>
-<div class="gasto-val">$${Math.round(gastTotal).toLocaleString('es-AR')}</div>
-</div>`;
+    document.getElementById('gastos').innerHTML=
+      gastItems.map(g=>`
+        <div class="gasto-row">
+          <div class="gasto-nombre">${g.nombre}</div>
+          <div class="gasto-val">$${Math.round(g.valor).toLocaleString('es-AR')}</div>
+        </div>`).join('')+
+      `<div class="gasto-row gtotal">
+        <div class="gasto-nombre">TOTAL</div>
+        <div class="gasto-val">$${Math.round(gastTotal).toLocaleString('es-AR')}</div>
+      </div>`;
 
-document.getElementById('loadingWrap').style.display='none';
-document.getElementById('dash').style.display='block';
+    document.getElementById('loadingWrap').style.display='none';
+    document.getElementById('dash').style.display='block';
 
-} catch(err) {
-console.error('Error:', err);
-document.getElementById('loadingWrap').style.display='none';
-document.getElementById('dash').style.display='block';
-set('hSub','⚠ Error cargando datos. Recargá la página (F5).');
-}
+  } catch(err) {
+    console.error('Error:', err);
+    document.getElementById('loadingWrap').style.display='none';
+    document.getElementById('dash').style.display='block';
+    set('hSub','⚠ Error cargando datos. Recargá la página (F5).');
+  }
 }
 </script>
 </body>
