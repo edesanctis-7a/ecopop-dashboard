@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -343,7 +344,11 @@ async function loadAll() {
     const gastosMensual = gastTotal;
     const gastosAcumulados = gastosMensual * cantMeses;
     const ventasTotal = todas.reduce((a,o) => a+o.venta, 0);
-    const pagoCoops = Object.values(coopMap).reduce((a,b) => a+b, 0);
+    // Sumar PAGO COOP. (NLP) directamente de todas las filas (no solo las que tienen cooperativa)
+    let pagoCoops = 0;
+    for (let i=1; i<ventasRows.length; i++) {
+      pagoCoops += num(ventasRows[i][iPago]);
+    }
     const excedente = ventasTotal - pagoCoops;
     const balance = excedente - gastosAcumulados;
 
