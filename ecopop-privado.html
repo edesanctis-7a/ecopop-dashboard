@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -257,17 +256,8 @@ async function loadAll() {
       fetchCSV(U.tablero), fetchCSV(U.evolucion), fetchCSV(U.ventas), fetchCSV(U.gastos)
     ]);
 
-    // TABLERO: buscar la fila que tenga valores con $ (robusto ante cambios de estructura)
-    let tv = [];
-    for (let i = 0; i < tabRows.length; i++) {
-      if (tabRows[i].filter(c => c && c.includes('$')).length >= 3) { tv = tabRows[i]; break; }
-    }
-    const tvVals = tv.filter(c => c && c.trim() !== '');
-    set('bVentas', peso(num(tvVals[0]), true));
-    set('bCoops',  peso(num(tvVals[1]), true));
-    set('bExc',    peso(num(tvVals[2]), true));
-    set('kGas',    peso(num(tvVals[3])));
-    set('bBal',    peso(num(tvVals[4]), true));
+    // FINANCIERO: placeholder - se calcula abajo desde ventas y gastos
+    // (no usamos Tablero porque tiene problemas de encoding con emojis)
 
     // EVOLUCIÓN: fila 0=headers, col 0=MES-AÑO, col 1=ventas
     const NM = ['','Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
@@ -347,6 +337,21 @@ async function loadAll() {
         if (nombre!=='IMP AL DEB') gastTotal+=valor;
       }
     }
+
+    // FINANCIERO: calcular desde datos crudos
+    const cantMeses = meses.length;
+    const gastosMensual = gastTotal;
+    const gastosAcumulados = gastosMensual * cantMeses;
+    const ventasTotal = todas.reduce((a,o) => a+o.venta, 0);
+    const pagoCoops = Object.values(coopMap).reduce((a,b) => a+b, 0);
+    const excedente = ventasTotal - pagoCoops;
+    const balance = excedente - gastosAcumulados;
+
+    set('bVentas', peso(ventasTotal, true));
+    set('bCoops',  peso(pagoCoops,   true));
+    set('bExc',    peso(excedente,   true));
+    set('kGas',    peso(gastosMensual));
+    set('bBal',    peso(balance,     true));
 
     // COOPS
     const coopsArr=Object.entries(coopMap)
