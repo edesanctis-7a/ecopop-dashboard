@@ -169,8 +169,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--crema);color:var(--texto)
       <div class="ck"><div class="cki">💰</div><div class="ckl">LTV estimado</div><div class="ckv" id="cLTV">—</div><div class="ckd">Valor promedio total por cliente durante el período.</div></div>
     </div>
     <div class="sec">🏅 Productos, cooperativas y costos</div>
-    <div class="tc">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:24px;margin-bottom:40px;">
       <div class="card"><h3>🛍️ Top 5 productos en $</h3><div id="topProds"></div></div>
+      <div class="card"><h3>📦 Top 5 productos en cantidad</h3><div id="topProdsQty"></div></div>
       <div class="card"><h3>🤝 Pagos a cooperativas</h3><div id="topCoops"></div></div>
       <div class="card"><h3>🧾 Gastos fijos mensuales</h3><div id="gastos"></div></div>
     </div>
@@ -273,12 +274,19 @@ async function loadAll() {
       ventas.push(num(r[1]));
     }
 
-    // TOP 5: col 3=nombre, col 4=valor (filas 2 a 6)
+    // TOP 5 en $: col 3=nombre, col 4=valor (filas 2 a 6)
     const top5=[];
     for (let i=2; i<=6 && i<evoRows.length; i++) {
       const nombre=(evoRows[i][3]||'').trim();
       const valor=num(evoRows[i][4]);
       if (nombre && nombre!=='sum' && valor>0) top5.push({name:nombre, value:valor});
+    }
+    // TOP 5 en cantidad: col 5=nombre, col 6=cantidad (filas 2 a 6)
+    const top5qty=[];
+    for (let i=2; i<=6 && i<evoRows.length; i++) {
+      const nombre=(evoRows[i][5]||'').trim();
+      const qty=num(evoRows[i][6]);
+      if (nombre && nombre!=='sum' && qty>0) top5qty.push({name:nombre, qty:qty});
     }
 
     // VENTAS: procesar por columna
@@ -396,6 +404,15 @@ async function loadAll() {
         <div class="pname">${p.name}</div>
         <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.round(p.value/maxP*100)}%"></div></div></div>
         <div class="pval">${peso(p.value)}</div>
+      </div>`).join('');
+
+    const maxQ=top5qty[0]?.qty||1;
+    document.getElementById('topProdsQty').innerHTML=top5qty.map((p,i)=>`
+      <div class="pr">
+        <div class="prank" style="color:${rankColors[i]}">${i+1}</div>
+        <div class="pname">${p.name}</div>
+        <div class="pbar"><div class="pbar-bg"><div class="pbar-fill" style="width:${Math.round(p.qty/maxQ*100)}%"></div></div></div>
+        <div class="pval">${p.qty} uds</div>
       </div>`).join('');
 
     const coopColors=['#2D6A4F','#52B788','#74C69D','#95D5B2','#B7E4C7','#F5C518','#E76F51'];
